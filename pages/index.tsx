@@ -1,8 +1,21 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import { Article, getLatestArticles } from "../lib/articles";
 // import Image from "next/image";
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = async () => {
+  const allArticleData = await getLatestArticles();
+  return {
+    props: {
+      allArticleData,
+    },
+  };
+};
+interface Props {
+  allArticleData: Article[];
+}
+
+const Home: NextPage<Props> = ({ allArticleData }) => {
   return (
     <div>
       <Head>
