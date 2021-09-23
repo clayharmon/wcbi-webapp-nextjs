@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
+import ArticleSummaryItem from "../components/articleSummaryItem";
 import { Article, getLatestArticles } from "../lib/articles";
-// import Image from "next/image";
 
 export const getStaticProps: GetStaticProps = async () => {
   const allArticleData = await getLatestArticles();
@@ -27,7 +27,11 @@ const Home: NextPage<Props> = ({ allArticleData }) => {
         <link rel="icon" href="/icon.png" />
       </Head>
       <header></header>
-      <main></main>
+      <main>
+        {allArticleData.map((item) => (
+          <ArticleSummaryItem key={item.id} {...item} />
+        ))}
+      </main>
       <footer></footer>
     </div>
   );
